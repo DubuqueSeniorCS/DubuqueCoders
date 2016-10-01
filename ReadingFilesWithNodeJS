@@ -1,0 +1,21 @@
+var http = require("http");
+
+http.createServer(function (request, response) {
+   var fs = require('fs')
+   //so here it takes a file called html (you can call it anything, the name goes in the ' ' 
+   //You will have to make a .txt file called html (or whatever) You can make that using linux commands or by right-clicking near the files 
+  //In the file you can put all the HTML you want to appear on the pae. 
+  //To make HTML fancy, you CSS to style it and to make HTML powerful use serverside javascript. 
+  
+   var html = fs.readFileSync('html','utf8')
+   // Send the HTTP header 
+   // HTTP Status: 200 : OK
+   // Content Type: text/plain
+   response.writeHead(200, {'Content-Type': 'text/html'});
+   
+   // Send the response body as "Hello World"
+   response.end(html);
+}).listen(process.env.PORT);
+
+// Console will print the message
+console.log('Server running at http://127.0.0.1:8081/');
