@@ -14,8 +14,11 @@ Clear to turn off LEDs
 Set the brightness of all LEDs
 ###rgb
 Set the Red Green Blue values for the LEDs 
+
 Example A. rgb900    -> sets LEDs to RED
+
 Example B. rgb090    -> sets LEDs to GREEN
+
 Example C. rgb009    -> sets LEDs to BLUE
 
 
