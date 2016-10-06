@@ -8,7 +8,8 @@ I recommend starting with the Adafruit lessons.
 
 2) Fast forward to the serial monitor project: https://learn.adafruit.com/adafruit-arduino-lesson-5-the-serial-monitor/the-serial-monitor
 
-#October 5, 2016 Updates  - Taco Shell Box (IoT) Internet of Things
+##October 5, 2016 Updates  
+###Taco Shell Box (IoT) Internet of Things
 During the coding club meeting on October 5 we used used an Arduino Uno with three [smart RGB NeoPixel](https://www.adafruit.com/product/1559)
 The code used is in the jack-o-candle2 folder.  This software is a mashup of the serial monitor project and this jack-o-candle project.
 https://learn.adafruit.com/neopixel-jack-o-lantern/
