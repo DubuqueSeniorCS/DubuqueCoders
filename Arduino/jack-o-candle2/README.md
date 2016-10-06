@@ -1,4 +1,10 @@
 #Jack-o-candle 2.0
+![alt text][logo]
+
+[logo]: https://github.com/DubuqueSeniorCS/DubuqueCoders/blob/master/Arduino/jack-o-candle2/taco-shell-box-IoT.png "Taco Shell Box IoT"
+
+
+
 This project is based on the [NeoPixel Jack-o-Latern from adafruit]
 (https://learn.adafruit.com/neopixel-jack-o-lantern/)
 
