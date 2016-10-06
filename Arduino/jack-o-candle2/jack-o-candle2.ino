@@ -108,7 +108,7 @@ void loop() {
   if (Serial.available())
   {
     char ch = Serial.read();
-    if (ch == 'b')
+    if (ch == 'b')  // assuming full command is rgb
     {
       ch = Serial.read();
       if (ch >= '0' && ch <= '9')
@@ -225,9 +225,9 @@ void InitFlames(){
     flames[i].state=0;
     
   }
-  flames[0].rgb[0] = 8;
-  flames[0].rgb[1] = 8;
-  flames[0].rgb[2] = 8;
+  flames[0].rgb[0] = 250;  // RED ON
+  flames[0].rgb[1] = 0;    // GREEN OFF   
+  flames[0].rgb[2] = 0;    // BLUE OFF
 }
 
 
