@@ -1,5 +1,6 @@
 #IMPORTANT UPDATE!!!
-No meeting on October 19, 2016.  Instead use your time to start this mini design challenge to create an MQTT Dashboard.  Instructions can be found on this wiki page.  https://github.com/DubuqueSeniorCS/DubuqueCoders/wiki/Create-an-MQTT-Dashboard
+No meeting on October 19, 2016.  Instead use your time to start this mini design challenge to create an MQTT Dashboard.  Instructions can be found on this wiki page.  
+https://github.com/DubuqueSeniorCS/DubuqueCoders/wiki/Create-an-MQTT-Dashboard
 
 
 # DubuqueCoders
