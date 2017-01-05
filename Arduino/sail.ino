@@ -3,7 +3,7 @@
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN 6
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS 3
+#define NUMPIXELS 8
 // When we setup the NeoPixel library, we tell it how many pixels, and which pin to use to send signals.
 // Note that for older NeoPixel strips you might need to change the third parameter--see the strandtest
 // example for more information on possible values.
@@ -22,7 +22,14 @@ int valB = 0;
 int valC = 0;
 int valD = 0;
 int BUTTON_OFF = 30;
-bool prev_Unpressed = false;
+int BUTTON_ON = 100;
+long time = 0;
+int debounce_count = 100;
+int current_state = 0;
+int counter = 0;
+int reading = 0;
+bool prev_UnpressedA = false;
+bool prev_UnpressedB = false;
 bool on = true;
 int array_spot = 0;
 int OFF = 1;
@@ -76,10 +83,10 @@ int colors3[] = {OFF, // Me, You will be my mom...
                 OFF, 
                 1, 2, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 2, 1,255};
 
-/*#if defined(ARDUINO_SAMD_ZERO) && defined(SERIAL_PORT_USBVIRTUAL)+
+#if defined(ARDUINO_SAMD_ZERO) && defined(SERIAL_PORT_USBVIRTUAL)
   // Required for Serial on Zero based boards
   #define Serial SERIAL_PORT_USBVIRTUAL
-#endif*/
+#endif
 
 
 
@@ -91,45 +98,50 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Loaded");
   pixels.begin(); // This initializes the NeoPixel library.
+   for(int pixelNumber=0;pixelNumber<NUMPIXELS;pixelNumber++){
+  pixels.setPixelColor(pixelNumber, 0,255,0);
+  }
+  pixels.show();
+  
 }
 
 void getColor(int n)
 {
-	for(int pixelNumber=0;pixelNumber<NUMPIXELS;pixelNumber++)
-	{
-		if (n==1)
+  for(int pixelNumber=0;pixelNumber<NUMPIXELS;pixelNumber++)
+  {
+    if (n==1)
         {
-			pixels.setPixelColor(pixelNumber, 0,0,0);
-          	digitalWrite(led, LOW);
-    		on = false;
+      pixels.setPixelColor(pixelNumber, 0,0,0);
+            digitalWrite(led, LOW);
+        on = false;
             Serial.println("setPixelColor = Off");
-    	}
- 		else if (n==2)
-   		{
-			pixels.setPixelColor(pixelNumber, 255,0,0);
+      }
+    else if (n==2)
+      {
+      pixels.setPixelColor(pixelNumber, 255,0,0);
             Serial.println("setPixelColor = RED");
-    	}
-		else if (n==3)
-    	{
-			pixels.setPixelColor(pixelNumber, 0,0,255);
+      }
+    else if (n==3)
+      {
+      pixels.setPixelColor(pixelNumber, 0,0,255);
             Serial.println("setPixelColor = BLUE");
-    	}
-		else if (n==4)
-    	{
-			pixels.setPixelColor(pixelNumber, 160,32,240);
+      }
+    else if (n==4)
+      {
+      pixels.setPixelColor(pixelNumber, 160,32,240);
             Serial.println("setPixelColor = PURPLE");
-    	}
+      }
       else if (n==5)
-    	{
-			pixels.setPixelColor(pixelNumber, 0,255,0);
+      {
+      pixels.setPixelColor(pixelNumber, 0,255,0);
             Serial.println("setPixelColor = GREEN");
-    	}
+      }
       else if (n==6)
-    	{
-			pixels.setPixelColor(pixelNumber, 255,255,0);
+      {
+      pixels.setPixelColor(pixelNumber, 255,255,0);
             Serial.println("setPixelColor = YELLOW");
-    	}
-	}
+      }
+  }
 }
   
 /*void handleButtonEvent()  {
@@ -147,91 +159,69 @@ void getColor(int n)
 }
 
 */
+int debounceInput(int reading)
+{
+  // If we have gone on to the next millisecond
+  if(millis() != time)
+  {
+    //reading = digitalRead(inPin);
+
+    if(reading == current_state && counter > 0)
+    {
+      counter--;
+    }
+    if(reading != current_state)
+    {
+       counter++; 
+    }
+    // If the Input has shown the same value for long enough let's switch it
+    if(counter >= debounce_count)
+    {
+      counter = 0;
+      current_state = reading;
+      
+    }
+    time = millis();
+    
+  }
+  return current_state;
+}
+
+
+
+
 
 // the loop routine runs over and over again forever:
 void loop() 
 {
-  
-/*digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);               // wait for a second
-  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);               // wait for a second*/
   valA = analogRead(buttonA);
-  //Serial.print(valA,3);
-  valB = analogRead(buttonB);
-//  valC = analogRead(buttonC);
-//  valD = analogRead(buttonD);
-  // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
-//  for(int i=0;i<NUMPIXELS;i++){
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-//  //  if (valA <= BUTTON_OFF){
-//    //  pixels.setPixelColor(i, pixels.Color(255,0,0)); // off
-//      digitalWrite(led, HIGH);
-//      Serial.println(" button off");
-//    }
-//    /*else if (valB <= BUTTON_OFF){
-//      pixels.setPixelColor(i, pixels.Color(0,0,255)); // off
-//    }
-//    else if (valC <= BUTTON_OFF){
-//      pixels.setPixelColor(i, pixels.Color(0,255,0)); // off
-//    }
-//    else if (valD <= BUTTON_OFF){
-//      pixels.setPixelColor(i, pixels.Color(255,255,0)); // off
-//    }*/
-//    else{
-//      pixels.setPixelColor(i, pixels.Color(0,255,0)); // Moderately bright green color.
-//      digitalWrite(led, LOW);
-//      Serial.println("button on");
-   // }
-    
-   // pixels.show(); // This sends the updated pixel color to the hardware.
- if (valB > BUTTON_OFF)
+  valA = debounceInput(valA);
+  valA*=1;
+    Serial.println(valA,DEC);
+    if (valA > BUTTON_ON)
     {
-		if(prev_Unpressed)
-        {
-          if (array_spot == 0)
-          {
-            array_spot = 0;
-          }
-          if(array_spot>0)
-          {  
-            array_spot--;
-           	getColor(colors[array_spot]);
-            Serial.print("Next array_spot=");
-          	Serial.println(array_spot);
-          	Serial.print("Next colors[array_spot]=");
-          	Serial.println(colors[array_spot]);
-       	
-          }
-        }
-		else
-        {
-          prev_Unpressed = true;
-        }
-          	
-       
-    } 
-	
-    
-    if (valA > BUTTON_OFF)
-    {
-		if(prev_Unpressed)
-        {			         
-        	getColor(colors[array_spot]);
+    if(prev_UnpressedA)
+        {              
+          getColor(colors[array_spot]);
+          digitalWrite(led, HIGH);
           
-          
-        	prev_Unpressed = false;
+          prev_UnpressedA = false;
           if(array_spot != 255) array_spot++;
-          	Serial.print("Next array_spot=");
-          	Serial.println(array_spot);
-          	Serial.print("Next colors[array_spot]=");
-          	Serial.println(colors[array_spot]);
-       	} 
+            Serial.print("Next array_spot=");
+            Serial.println(array_spot);
+            Serial.print("Next colors[array_spot]=");
+            Serial.println(colors[array_spot]);
+        } 
        
     } 
-	else
+  else if(valA <= BUTTON_OFF)
     {
-      prev_Unpressed = true;
+      prev_UnpressedA = true;
+      digitalWrite(led, LOW);
     }
+  else 
+  {
+   Serial.println("Not ON or OFF");
+  }
 pixels.show();
 }
