@@ -14,7 +14,6 @@
     
     This code demonstrates how to use a signal generator to test the button debounce 
     and signal conditioning logic.
-
 */
 
 #include <Adafruit_NeoPixel.h>
@@ -69,50 +68,99 @@ int BLUE = 3;
 int PURPLE = 4;
 int GREEN = 5;
 int YELLOW = 6;
-int colors[] = {OFF, // Me, You will be my mom...
+int WHITE = 7; 
+//redColors is Red boat 
+int redColors[] = {OFF, // Start 
                 RED, // A red one
                 RED, // A blue one
                 OFF, // The red one came back
                 OFF, // The blue one came back
+                OFF, //I sail the blue boat 
+                RED, //The red ones for me
+                OFF, //I am the yellow boat
                 RED, // I want to change the world,instead I sleep...
-                OFF, // Now
+                OFF, // Now, now, now 
                 RED, // Red
-                OFF, // I hear
                 BLUE, // Blue
-                OFF, // I feel 
                 PURPLE,// Purple
-                OFF, // I taste
                 GREEN, // Green 
                 YELLOW,// I choose yellow
                 OFF, // Land ho!
-                RED, // The storm is coming but i don't mind...
-                OFF,// Now
+                RED, // I am asking
+                OFF,// Now, now, now 
+                WHITE, //Look! Come Look! 
+                OFF, //So Bright 
+                RED, //A red one 
+                RED, //A blue one 
+                OFF, //the red one came back 
+                OFF, //the blue one came back 
+                RED, //I see red 
+                BLUE, //I hear blue 
+                PURPLE, //I feel purple 
+                GREEN, //I taste green 
+                YELLOW,//I am yellow 
                 255};
-int colors2[] = {OFF, // Me, You will be my mom...
+   //blueColors is the blueBoat 
+   int blueColors[] = {OFF, // Start 
                 OFF, // A red one
                 BLUE, // A blue one
-                BLUE, 
-                OFF,
-                BLUE,
-                OFF,
-                RED,
-                OFF,
-                BLUE,
-                OFF,
-                PURPLE,
-                OFF,
-                GREEN,
-                OFF,
-                YELLOW,
-                OFF,
-                BLUE,
-                OFF,
-                 255};
-int colors3[] = {OFF, // Me, You will be my mom...
-                RED, // A red one
-                RED, // A blue one
-                OFF, 
-                1, 2, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1, 2, 1,255};
+                BLUE, // The red one came back
+                OFF, // The blue one came back
+                BLUE, //I sail the blue boat 
+                BLUE, //The red ones for me
+                OFF, //I am the yellow boat
+                BLUE, // I want to change the world,instead I sleep...
+                OFF, // Now, now, now 
+                RED, // Red
+                BLUE, // Blue
+                PURPLE,// Purple
+                GREEN, // Green 
+                YELLOW,// I choose yellow
+                OFF, // Land ho!
+                BLUE, // I am asking
+                OFF,// Now, now, now 
+                WHITE, //Look! Come Look! 
+                OFF, //So Bright 
+                OFF, //A red one 
+                BLUE, //A blue one 
+                BLUE, //the red one came back 
+                OFF, //the blue one came back 
+                RED, //I see red 
+                BLUE, //I hear blue 
+                PURPLE, //I feel purple 
+                GREEN, //I taste green 
+                YELLOW,//I am yellow 
+                255};
+  int yellowColors[] = {OFF, // Start 
+                OFF, // A red one
+                OFF, // A blue one
+                OFF, // The red one came back
+                OFF, // The blue one came back
+                OFF, //I sail the blue boat 
+                OFF, //The red ones for me
+                OFF, //I am the yellow boat
+                OFF, // I want to change the world,instead I sleep...
+                OFF, // Now, now, now 
+                OFF, // Red
+                OFF, // Blue
+                OFF,// Purple
+                OFF, // Green 
+                OFF,// I choose yellow
+                OFF, // Land ho!
+                OFF, // I am asking
+                OFF,// Now, now, now 
+                OFF, //Look! Come Look! 
+                OFF, //So Bright 
+                OFF, //A red one 
+                OFF, //A blue one 
+                OFF, //the red one came back 
+                OFF, //the blue one came back 
+                RED, //I see red 
+                BLUE, //I hear blue 
+                PURPLE, //I feel purple 
+                GREEN, //I taste green 
+                YELLOW,//I am yellow 
+                255};
 
 #if defined(ARDUINO_SAMD_ZERO) && defined(SERIAL_PORT_USBVIRTUAL)
   // Required for Serial on Zero based boards
@@ -161,8 +209,14 @@ void getColor(int n)
       pixels.setPixelColor(pixelNumber, 255,255,0);
       Serial.println("setPixelColor = YELLOW");
     }
+    else if (n==7) { 
+      pixels.setPixelColor(pixelNumber, 255,255,255); 
+      Serial.println("setPixelColor = WHITE");  
+    }
+  } 
+    
   }
-}
+
   
 int debounceInput(int reading)
 {
@@ -205,20 +259,20 @@ void scanInputs()
   }
   if (valA > BUTTON_ON) {
     if(prev_UnpressedA) {              
-      getColor(colors[array_spot]);
+      getColor(redColors[array_spot]);
       digitalWrite(led, HIGH);
       Serial.println("onButtonPressed");
       button_pressed_time = millis();
       button_pressing_duration = 0;
       button_releasing_duration = 0;
       prev_UnpressedA = false;
-      if(colors[array_spot] != 255) {
+      if(redColors[array_spot] != 255) {
         array_spot++;
       }
       Serial.print("Next array_spot=");
       Serial.println(array_spot);
-      Serial.print("Next colors[array_spot]=");
-      Serial.println(colors[array_spot]);
+      Serial.print("Next redColors[array_spot]=");
+      Serial.println(redColors[array_spot]);
     } else {
       button_pressing_duration = millis()-button_pressed_time;
     }
@@ -259,4 +313,4 @@ void loop()
     // skip this loop and wait for the next millisecond
     return;
   }
-}    
+} 
