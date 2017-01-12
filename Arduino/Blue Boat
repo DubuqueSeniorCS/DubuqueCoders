@@ -260,6 +260,7 @@ void scanInputs()
     Serial.println(valA,DEC);
   }
   if (valA > BUTTON_ON) {
+  int oldPressTime = 0;
     if(prev_UnpressedA) {              
       getColor(blueColors[array_spot]);
       digitalWrite(led, HIGH);
