@@ -18,6 +18,8 @@
 
 #include <Adafruit_NeoPixel.h>
 
+// RED
+
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN 6
 // How many NeoPixels are attached to the Arduino?
@@ -29,7 +31,7 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ80
 
 #define BUTTON_OFF 30
 #define BUTTON_ON 100
-#define BUTTON_OFF_HOLD_DURATION 300
+#define BUTTON_OFF_HOLD_DURATION 50
 #define BUTTON_DEBOUNCE_DURATION 1
 
 // Pin 13 has an LED connected on most Arduino boards.
@@ -57,7 +59,7 @@ unsigned long button_released_time = 0;
 int button_pressing_duration = 0;
 unsigned long button_pressed_time = 0;
 int show_debug = 0;
-
+int oldPressTime = 0;
 bool prev_UnpressedA = false;
 bool prev_UnpressedB = false;
 bool on = true;
@@ -178,7 +180,7 @@ void setup() {
   Serial.println("Loaded");
   pixels.begin(); // This initializes the NeoPixel library.
    for(int pixelNumber=0;pixelNumber<NUMPIXELS;pixelNumber++){
-  pixels.setPixelColor(pixelNumber, 0,255,0);
+  pixels.setPixelColor(pixelNumber, 255,0,0);
   }
   pixels.show();
   button_pressed_time = millis();
@@ -260,8 +262,16 @@ void scanInputs()
     Serial.println(valA,DEC);
   }
   if (valA > BUTTON_ON) {
-  int oldPressTime = 0;
-    if(prev_UnpressedA) {              
+    if(prev_UnpressedA) {  
+      if(oldPressTime > 5000)
+      {
+         array_spot = 0; 
+         pixels.setPixelColor(0,255,0,0); pixels.show();
+         delay(200);
+          pixels.setPixelColor(0,0,0,0); pixels.show();
+           delay(200);
+           pixels.setPixelColor(0,255,0,0); pixels.show();
+      }            
       getColor(redColors[array_spot]);
       digitalWrite(led, HIGH);
       oldPressTime = button_pressing_duration;
@@ -273,13 +283,14 @@ void scanInputs()
       if(redColors[array_spot] != 255) {
         array_spot++;
       }
-      else {
-      Serial.println(oldPressTime);
-      if(oldPressTime > 5000)
-      {
-         array_spot = 0;  
-      }
-      }
+//      else {
+//      Serial.println(oldPressTime);
+//      if(oldPressTime > 5000)
+//      {
+//         array_spot = 0; 
+//         pixels.setPixelColor(0,255,0,0);
+//      }
+//      }
       Serial.print("Next array_spot=");
       Serial.println(array_spot);
       Serial.print("Next redColors[array_spot]=");
@@ -302,8 +313,18 @@ void scanInputs()
         Serial.println("ms releasing (or low battery voltage dip?)");
       }
     } else {
-      Serial.print(millis()-button_released_time);
-      Serial.println("ms released");   
+//      Serial.print(millis()-button_released_time);
+//      Serial.println("ms released");   
+      if(button_pressing_duration > 5000)
+      {
+         array_spot = 0; 
+         pixels.setPixelColor(0,255,0,0); pixels.show();
+         delay(200);
+          pixels.setPixelColor(0,0,0,0); pixels.show();
+           delay(200);
+           pixels.setPixelColor(0,255,0,0); pixels.show();
+           button_pressing_duration = 5000;
+      } 
     }
     
       
