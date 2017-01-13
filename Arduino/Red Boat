@@ -1,14 +1,5 @@
-//  _ ___ _______     ___ ___ ___  ___ _   _ ___ _____ ___ 
-// / |_  )__ /   \   / __|_ _| _ \/ __| | | |_ _|_   _/ __| 
-// | |/ / |_ \ |) | | (__ | ||   / (__| |_| || |  | | \__ \ 
-// |_/___|___/___/   \___|___|_|_\\___|\___/|___| |_| |___/ 
-// 
-// Button Debounce and Signal Conditioning 
-// 
-// Made by agvesperman agvesperman
-// License: CC-BY-SA 3.0
-// Downloaded from: https://circuits.io/circuits/3642099-button-debounce-and-signal-conditioning
-// Remove all comments with four slash for use on real hardware feather M0
+//RED BOAT
+//last updated Jan. 13
 /*
     Sail Lighting Project
     
@@ -31,7 +22,7 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ80
 
 #define BUTTON_OFF 30
 #define BUTTON_ON 100
-#define BUTTON_OFF_HOLD_DURATION 50
+#define BUTTON_OFF_HOLD_DURATION 100
 #define BUTTON_DEBOUNCE_DURATION 1
 
 // Pin 13 has an LED connected on most Arduino boards.
@@ -298,8 +289,8 @@ void scanInputs()
     } else {
       button_pressing_duration = millis()-button_pressed_time;
     }
-    Serial.print(button_pressing_duration);
-    Serial.println("ms pressed ");   
+//    Serial.print(button_pressing_duration);
+//    Serial.println("ms pressed ");   
   } else if(valA <= BUTTON_OFF) {
     button_releasing_duration = millis()-(button_pressed_time+button_pressing_duration);
     if (!prev_UnpressedA) {
@@ -315,15 +306,21 @@ void scanInputs()
     } else {
 //      Serial.print(millis()-button_released_time);
 //      Serial.println("ms released");   
-      if(button_pressing_duration > 5000)
+      if(button_pressing_duration > 3000)
       {
          array_spot = 0; 
-         pixels.setPixelColor(0,255,0,0); pixels.show();
-         delay(200);
-          pixels.setPixelColor(0,0,0,0); pixels.show();
-           delay(200);
-           pixels.setPixelColor(0,255,0,0); pixels.show();
-           button_pressing_duration = 5000;
+         pixels.setPixelColor(0,255,0,0); 
+         pixels.show();
+         delay(500);
+          pixels.setPixelColor(0,0,0,0); 
+          pixels.show();
+           delay(500);
+           pixels.setPixelColor(0,255,0,0); 
+           pixels.show();
+           delay(500);
+           pixels.setPixelColor(0,255,255,255);
+           pixels.show();
+           button_pressing_duration = 3000;
       } 
     }
     
