@@ -22,7 +22,7 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ80
 
 #define BUTTON_OFF 30
 #define BUTTON_ON 100
-#define BUTTON_OFF_HOLD_DURATION 100
+#define BUTTON_OFF_HOLD_DURATION 500
 #define BUTTON_DEBOUNCE_DURATION 1
 
 // Pin 13 has an LED connected on most Arduino boards.
@@ -254,15 +254,15 @@ void scanInputs()
   }
   if (valA > BUTTON_ON) {
     if(prev_UnpressedA) {  
-      if(oldPressTime > 5000)
-      {
-         array_spot = 0; 
-         pixels.setPixelColor(0,255,0,0); pixels.show();
-         delay(200);
-          pixels.setPixelColor(0,0,0,0); pixels.show();
-           delay(200);
-           pixels.setPixelColor(0,255,0,0); pixels.show();
-      }            
+//      if(oldPressTime > 5000)
+//      {
+//         array_spot = 0; 
+//         pixels.setPixelColor(0,255,0,0); pixels.show();
+//         delay(200);
+//          pixels.setPixelColor(0,0,0,0); pixels.show();
+//           delay(200);
+//           pixels.setPixelColor(0,255,0,0); pixels.show();
+//      }            
       getColor(redColors[array_spot]);
       digitalWrite(led, HIGH);
       oldPressTime = button_pressing_duration;
