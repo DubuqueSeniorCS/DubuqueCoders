@@ -1,5 +1,5 @@
-//BLUE BOAT
-// last updated Jan.13
+//RED BOAT
+//last updated Jan. 13
 /*
     Sail Lighting Project
     
@@ -8,6 +8,8 @@
 */
 
 #include <Adafruit_NeoPixel.h>
+
+// RED
 
 // Which pin on the Arduino is connected to the NeoPixels?
 #define PIN 6
@@ -49,7 +51,6 @@ int button_pressing_duration = 0;
 unsigned long button_pressed_time = 0;
 int show_debug = 0;
 int oldPressTime = 0;
-
 bool prev_UnpressedA = false;
 bool prev_UnpressedB = false;
 bool on = true;
@@ -64,37 +65,6 @@ int WHITE = 7;
 //redColors is Red boat 
 int redColors[] = {OFF, // Start 
                 RED, // A red one
-                RED, // A blue one
-                OFF, // The red one came back
-                OFF, // The blue one came back
-                OFF, //I sail the blue boat 
-                RED, //The red ones for me
-                OFF, //I am the yellow boat
-                RED, // I want to change the world,instead I sleep...
-                OFF, // Now, now, now 
-                RED, // Red
-                BLUE, // Blue
-                PURPLE,// Purple
-                GREEN, // Green 
-                YELLOW,// I choose yellow
-                OFF, // Land ho!
-                RED, // I am asking
-                OFF,// Now, now, now 
-                WHITE, //Look! Come Look! 
-                OFF, //So Bright 
-                RED, //A red one 
-                RED, //A blue one 
-                OFF, //the red one came back 
-                OFF, //the blue one came back 
-                RED, //I see red 
-                BLUE, //I hear blue 
-                PURPLE, //I feel purple 
-                GREEN, //I taste green 
-                YELLOW,//I am yellow 
-                255};
-   //blueColors is the blueBoat 
-   int blueColors[] = {OFF, // Start 
-                BLUE, // A red one
                 YELLOW, // A blue one
                 YELLOW, // The red one came back
                 YELLOW, // The blue one came back
@@ -121,6 +91,37 @@ int redColors[] = {OFF, // Start
                 YELLOW, //I hear blue 
                 YELLOW, //I feel purple 
                 YELLOW, //I taste green 
+                YELLOW,//I am yellow 
+                255};
+   //blueColors is the blueBoat 
+   int blueColors[] = {OFF, // Start 
+                OFF, // A red one
+                BLUE, // A blue one
+                BLUE, // The red one came back
+                OFF, // The blue one came back
+                BLUE, //I sail the blue boat 
+                BLUE, //The red ones for me
+                OFF, //I am the yellow boat
+                BLUE, // I want to change the world,instead I sleep...
+                OFF, // Now, now, now 
+                RED, // Red
+                BLUE, // Blue
+                PURPLE,// Purple
+                GREEN, // Green 
+                YELLOW,// I choose yellow
+                OFF, // Land ho!
+                BLUE, // I am asking
+                OFF,// Now, now, now 
+                WHITE, //Look! Come Look! 
+                OFF, //So Bright 
+                OFF, //A red one 
+                BLUE, //A blue one 
+                BLUE, //the red one came back 
+                OFF, //the blue one came back 
+                RED, //I see red 
+                BLUE, //I hear blue 
+                PURPLE, //I feel purple 
+                GREEN, //I taste green 
                 YELLOW,//I am yellow 
                 255};
   int yellowColors[] = {OFF, // Start 
@@ -170,7 +171,7 @@ void setup() {
   Serial.println("Loaded");
   pixels.begin(); // This initializes the NeoPixel library.
    for(int pixelNumber=0;pixelNumber<NUMPIXELS;pixelNumber++){
-  pixels.setPixelColor(pixelNumber, 0,255,255); //cyan
+  pixels.setPixelColor(pixelNumber, 255,20,133); //pinkish red
   }
   pixels.show();
   button_pressed_time = millis();
@@ -233,6 +234,9 @@ int debounceInput(int reading)
 }
 
 
+
+
+
 void scanInputs()
 {
   if (Serial.available() > 0) {
@@ -250,9 +254,16 @@ void scanInputs()
   }
   if (valA > BUTTON_ON) {
     if(prev_UnpressedA) {  
-   
-                  
-      getColor(blueColors[array_spot]);
+//      if(oldPressTime > 5000)
+//      {
+//         array_spot = 0; 
+//         pixels.setPixelColor(0,255,0,0); pixels.show();
+//         delay(200);
+//          pixels.setPixelColor(0,0,0,0); pixels.show();
+//           delay(200);
+//           pixels.setPixelColor(0,255,0,0); pixels.show();
+//      }            
+      getColor(redColors[array_spot]);
       digitalWrite(led, HIGH);
       oldPressTime = button_pressing_duration;
       Serial.println("onButtonPressed");
@@ -260,15 +271,15 @@ void scanInputs()
       button_pressing_duration = 0;
       button_releasing_duration = 0;
       prev_UnpressedA = false;
-      if(blueColors[array_spot] != 255) {
+      if(redColors[array_spot] != 255) {
         array_spot++;
       }
 //      else {
 //      Serial.println(oldPressTime);
 //      if(oldPressTime > 5000)
 //      {
-//         array_spot = 0;
-//         pixels.setPixelColor(0,0,0,255);
+//         array_spot = 0; 
+//         pixels.setPixelColor(0,255,0,0);
 //      }
 //      }
       Serial.print("Next array_spot=");
@@ -294,8 +305,8 @@ void scanInputs()
       }
     } else {
 //      Serial.print(millis()-button_released_time);
-//      Serial.println("ms released");
-     if(button_pressing_duration > 3000)
+//      Serial.println("ms released");   
+      if(button_pressing_duration > 3000)
       {
          array_spot = 0; 
          pixels.setPixelColor(0,255,0,0); 
