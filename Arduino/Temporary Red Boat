@@ -236,7 +236,6 @@ int debounceInput(int reading)
 
 
 
-
 void scanInputs()
 {
   if (Serial.available() > 0) {
