@@ -75,18 +75,47 @@ def equals():
     ]
     return logo
 
-def mail():
-    P = pink
-    O = nothing
+def Alert(c):
+    
+    O = c
     logo = [
     O, O, O, O, O, O, O, O,
-    O, P, O, O, O, O, P, O,
-    O, P, O, O, O, O, P, O,
-    O, O, P, O, O, P, O, O,
-    O, O, P, O, O, P, O, O,
-    O, O, O, P, P, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
     O, O, O, O, O, O, O, O,
     O, O, O, O, O, O, O, O,
     ]
     return logo
-mail()
+def mail():
+    P = [255,0,0]
+    O = nothing
+    logo = [
+    P, P, P, P, P, P, P, P,
+    P, P, O, O, O, O, P, P,
+    P, P, O, O, O, O, P, P,
+    P, O, P, O, O, P, O, P,
+    P, O, P, O, O, P, O, P,
+    P, O, O, P, P, O, O, P,
+    P, O, O, O, O, O, O, P,
+    P, P, P, P, P, P, P, P,
+    ]
+    s.set_pixels(Alert(logo))
+    
+def red_A():
+  s.set_pixels(Alert(red))
+def blue_A():
+  s.set_pixels(Alert(blue))
+def yellow_A():
+  s.set_pixels(Alert(yellow))
+while True: 
+    red_A()
+    time.sleep(.75)
+    mail()
+    time.sleep(.75)
+    blue_A()
+    time.sleep(.75)
+    yellow_A()
+    time.sleep(.75)
