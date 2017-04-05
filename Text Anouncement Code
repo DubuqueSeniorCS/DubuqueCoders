@@ -12,68 +12,6 @@ white = (255,255,255)
 nothing = (0,0,0)
 pink = (255,105, 180)
 
-def trinket_logo():
-    G = green
-    Y = yellow
-    B = blue
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O,
-    O, Y, Y, Y, B, G, O, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    Y, Y, Y, Y, Y, B, G, O,
-    O, Y, Y, Y, B, G, O, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
-
-def raspi_logo():
-    G = green
-    R = red
-    O = nothing
-    logo = [
-    O, G, G, O, O, G, G, O, 
-    O, O, G, G, G, G, O, O,
-    O, O, R, R, R, R, O, O, 
-    O, R, R, R, R, R, R, O,
-    R, R, R, R, R, R, R, R,
-    R, R, R, R, R, R, R, R,
-    O, R, R, R, R, R, R, O,
-    O, O, R, R, R, R, O, O,
-    ]
-    return logo
-
-def plus():
-    W = white
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O, 
-    O, O, O, W, W, O, O, O,
-    O, O, O, W, W, O, O, O, 
-    O, W, W, W, W, W, W, O,
-    O, W, W, W, W, W, W, O,
-    O, O, O, W, W, O, O, O,
-    O, O, O, W, W, O, O, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
-
-def equals():
-    W = white
-    O = nothing
-    logo = [
-    O, O, O, O, O, O, O, O, 
-    O, W, W, W, W, W, W, O,
-    O, W, W, W, W, W, W, O,
-    O, O, O, O, O, O, O, O,
-    O, O, O, O, O, O, O, O,
-    O, W, W, W, W, W, W, O,
-    O, W, W, W, W, W, W, O,
-    O, O, O, O, O, O, O, O,
-    ]
-    return logo
 
 def Alert(c):
     
@@ -89,6 +27,7 @@ def Alert(c):
     O, O, O, O, O, O, O, O,
     ]
     return logo
+    
 def mail():
     P = [255,0,0]
     O = nothing
@@ -110,12 +49,11 @@ def blue_A():
   s.set_pixels(Alert(blue))
 def yellow_A():
   s.set_pixels(Alert(yellow))
+
 while True: 
+    time.sleep(0.75)
     red_A()
-    time.sleep(.75)
-    mail()
     time.sleep(.75)
     blue_A()
     time.sleep(.75)
     yellow_A()
-    time.sleep(.75)
