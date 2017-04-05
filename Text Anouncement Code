@@ -43,6 +43,21 @@ def mail():
     ]
     s.set_pixels(Alert(logo))
     
+def one():
+    O = [255,0,0]
+    P = [1,0,0]
+    jaja = [
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    O, O, O, O, O, O, O, O,
+    ]
+    s.set_pixels(jaja)
+    
 def red_A():
   s.set_pixels(Alert(red))
 def blue_A():
@@ -51,9 +66,11 @@ def yellow_A():
   s.set_pixels(Alert(yellow))
 
 while True: 
+    one()
     time.sleep(0.75)
     red_A()
     time.sleep(.75)
     blue_A()
     time.sleep(.75)
     yellow_A()
+    time.sleep()
